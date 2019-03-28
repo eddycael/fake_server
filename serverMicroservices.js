@@ -12,8 +12,9 @@ appcat.get('/microservice1/cats', (req, res) => {
         { name: 'cat5' },
     ];
     result.data = cats;
-    result.remoteAddress = req.connection.remoteAddress;
-    result.hostAddress = req.headers.host 
+    result.originAddress = req.connection.remoteAddress;
+    result.hostAddress = req.headers['host'];
+    result.clientAddress = req.headers['x-real-ip'];
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
@@ -22,6 +23,10 @@ appcat.post('/microservice1/cats', (req, res) => {
     const result = {
         'status': 'cat created'
     };
+    result.originAddress = req.connection.remoteAddress;
+    result.hostAddress = req.headers['host'];
+    result.clientAddress = req.headers['x-real-ip'];
+
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
@@ -38,9 +43,10 @@ appdog.get('/microservice1/dogs', (req, res) => {
         { name: 'dog5' },
     ];
     result.data = dogs;
-    result.remoteAddress = req.connection.remoteAddress;
-    result.hostAddress = req.headers.host 
-    
+    result.originAddress = req.connection.remoteAddress;
+    result.hostAddress = req.headers['host'];
+    result.clientAddress = req.headers['x-real-ip'];
+
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
@@ -48,6 +54,10 @@ appdog.post('/microservice1/dogs', (req, res) => {
     const result = {
         'status': 'dog created'
     };
+    result.originAddress = req.connection.remoteAddress;
+    result.hostAddress = req.headers['host'];
+    result.clientAddress = req.headers['x-real-ip'];
+    
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
@@ -62,10 +72,11 @@ appape.get('/microservice1/apes', (req, res) => {
         { name: 'ape4' },
         { name: 'ape5' },
     ];
-    result.data = dogs;
-    result.remoteAddress = req.connection.remoteAddress;
-    result.hostAddress = req.headers.host 
-    
+    result.data = apes;
+    result.originAddress = req.connection.remoteAddress;
+    result.hostAddress = req.headers['host'];
+    result.clientAddress = req.headers['x-real-ip'];
+
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
@@ -76,6 +87,9 @@ appape.post('/microservice1/apes', (req, res) => {
     const result = {
         'status': 'ape created'
     };
+    result.originAddress = req.connection.remoteAddress;
+    result.hostAddress = req.headers['host'];
+    result.clientAddress = req.headers['x-real-ip'];
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
