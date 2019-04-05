@@ -15,6 +15,7 @@ appcat.get('/microservice1/cats', (req, res) => {
     result.originAddress = req.connection.remoteAddress;
     result.hostAddress = req.headers['host'];
     result.clientAddress = req.headers['x-real-ip'];
+    result.forwaredFor = req.headers['x-forwarded-for'];
     res.set('Content-Type', 'application/json');
     return res.send(JSON.stringify(result));
 });
